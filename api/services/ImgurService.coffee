@@ -1,21 +1,27 @@
 ## -- Dependencies -------------------------------------------------------------
 
 unirest = require 'unirest'
-config  = sails.config.api.imgur
+request = require 'superagent'
+config  = sails.config.imgur
 
 ## -- Exports ------------------------------------------------------------------
 
 module.exports =
 
-  uploadAnonymous: (options) ->
-
-    request = unirest
-    .post("#{config.endpoint}/image")
-    .header("X-Mashape-Key", config.mashape)
-    .header("Authorization", "CLIENT-ID #{config.key}")
-    .header("Content-Type", "application/x-www-form-urlencoded")
-
-    request.field(option, options[option]) for option in options
-
-    request.end (result) ->
-      console.log result.status, result.headers, result.body
+  image:
+    ###*
+     * Upload Photo as anonymous. Options can be:
+      - [album]: ID of the album to upload to.
+      - [description]: A description of the image.
+      - <image>: The binary data, a url string, or base64 data.
+      - [title]: A title for the image.
+      - [type]: The type of image being uploaded : binary, url, base64.
+    ###
+    upload: (options, cb) ->
+      request
+        .post("#{config.endpoint}/image")
+        .set("X-Mashape-Key", config.mashape)
+        .set("Authorization", "CLIENT-ID #{config.key}")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send options
+        .end (err, res) -> cb(err, res)

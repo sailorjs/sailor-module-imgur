@@ -8,17 +8,8 @@ query_generator = (collection, query) ->
 ## -- Private -------------------------------------------------------------
 
 url =
-  user:
-    create  : (query=undefined) ->  query_generator('user', query)
-    update  : (query=undefined) ->  query_generator('user', query)
-    find    : (query=undefined) ->  query_generator('user', query)
-    destroy : (query=undefined) ->  query_generator('user', query)
-
-  message:
-    create  : (query=undefined) ->  query_generator('message', query)
-    update  : (query=undefined) ->  query_generator('message', query)
-    find    : (query=undefined) ->  query_generator('message', query)
-    destroy : (query=undefined) ->  query_generator('message', query)
+  imgur:
+    anonymous : (query=undefined) ->  query_generator('imgur/image', query)
 
 ## -- Exports -------------------------------------------------------------
 
