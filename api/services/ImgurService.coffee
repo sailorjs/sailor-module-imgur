@@ -1,6 +1,5 @@
 ## -- Dependencies -------------------------------------------------------------
 
-unirest = require 'unirest'
 request = require 'superagent'
 config  = sails.config.imgur
 

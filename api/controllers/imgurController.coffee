@@ -7,11 +7,10 @@ errorify   = sailor.errorify
 
 _determinate = (data, res) ->
 
-  console.log data.status
   isOK = 200 <= data.status < 399
   isClientError = 400 <= data.status < 499
 
-  return res.ok(data) if isOK
+  return res.ok(JSON.parse(data.text)) if isOK
   return res.badRequest(data) if isClientError
   res.serverError(data)
 
